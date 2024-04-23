@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Button State Example</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel"> 
+
+    const Title = () => {
+      const styles = {
+  
+        color: 'yellow',
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        height: '100px',
+        padding: '20 px, 10 px',
+        fontsize: '45px',
+        boxSizing: 'border-box'
+      }
+      return (
+        <header style = {styles}>Blog Star Wars</header>
+      )
+    }
+    const Footer = () =>{
+      const styles = {
+        color: 'white',
+        display: 'flex',
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+        height: '100px',
+        padding: '20px, 10px',
+        fontSize: '25px',
+        boxSizing: 'border-box',
+        flexDirection: 'column'
+      }
+      return(
+        <footer style = {styles}>CopyRight 2021</footer>
+      )
+    }
+
+    const Posts = () =>{
+      const styles = {
+        flexGrow: '1',
+        flexBasis: '0',
+        display: 'flex',
+        overflowY: 'auto',
+        color: 'white',
+        widht: '500px',
+        listStyle: 'none',
+        flexDirection: 'column'
+
+      }
+
+      const loadingStyles = {
+        color: 'white',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
+        width: '100vw'
+      }
+      const [posts, setPosts] = React.useState([])
+
+      React.useEffect(() => {
+        getPosts()
+      }, [])
+      const getPosts = async () =>{
+        const response = await fetch('https://api.tiburoncin.lat/22111/Posts')
+        
+      }
+      if (posts.length === 0){
+        return (
+          <ul style = {loadingStyles}>
+            <li>Loading...</li>
+          </ul>
+        )
+      }
+      return(
+        <ul style = {styles}>
+          {posts.map((post) => <Post key = {index}/>)}
+        </ul>
+      )
+    }
+
+    const Post = () =>{
+      return(
+        <li>
+          <h1>Post Title</h1>
+          <h3>Post Author</h3>
+          <p>Post Content</p>
+          <img src = "https://via.placeholder.com/150" alt = "Post Image"/>
+        </li>
+      )
+    }
+
+
+    const App = () => {
+      const styles = {
+        backgroundColor: 'rgb(0, 0, 0)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
+        width: '100vw',
+        flexDirection: 'column'
+      }
+      return (
+        <main style = {styles}>
+          <Title/>
+          <Posts/>
+          <Footer/>
+        </main>
+      )
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'))
+    root.render(<App />)
+    </script>
+</body>
+</html>
+
